@@ -36,16 +36,14 @@ var strDownloadMime = "image/octet-stream";
 var loadingScreen = {
 	scene: new THREE.Scene(),
 	camera: new THREE.PerspectiveCamera(90, window.innerWidth/window.innerHeight, 0.1, 100),
-  box: new THREE.Mesh(
-		new THREE.BoxGeometry( 0.5, 0.5, 0.5 ),
-		new THREE.MeshStandardMaterial({ color:0x221155 })
-  ),
+  box: new THREE.Mesh( new THREE.BoxGeometry( 0.5, 0.5, 0.5 ), new THREE.MeshStandardMaterial({ color:0x221155 })),
   hemiLight: new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 )
 };
 var loadingManager = null;
 var RESOURCES_LOADED = false;
 var itemload, itemtotal;
 var loadpage=0;
+var foo;
 // - Main code -
 init()
 animate()
@@ -70,12 +68,13 @@ function init() {
     // Create a loading manager to set RESOURCES_LOADED when appropriate.
     // Pass loadingManager to all resource loaders.
     loadingManager = new THREE.LoadingManager();
-
+    // foo = document.createElement('foo');
+    // document.body.appendChild(foo)
     loadingManager.onProgress = function(item, loaded, total){
       //console.log(item, loaded, total);
       itemload = loaded;
       itemtotal = total;
-      foo = document.createElement('foo');
+      foo = document.getElementById('foo');
       foo.style.position = 'absolute';
       foo.style.top = '100px';
       foo.style.textAlign = 'center';
@@ -83,6 +82,7 @@ function init() {
       foo.style.color = '#990000';
       foo.style.fontSize = '15px';
       foo.innerHTML = "Loading item: "+itemload+" of "+itemtotal+" <br>Just a minute";
+      
       if(itemload == itemtotal) foo.remove();
       console.log('Loading file: '+item+'.\nLoaded: '+loaded+' of ' +total+' files.');
     };
@@ -412,10 +412,12 @@ function animate(){
 if( RESOURCES_LOADED == false ){
   requestAnimationFrame(animate);
   // loadingScreen.box.position.x -= 0.05;
+  loadingScreen.box.rotation.x -= 0.05;
   loadingScreen.box.rotation.y -= 0.05;
   // if( loadingScreen.box.position.x < -10 ) loadingScreen.box.position.x = 10;
   // loadingScreen.box.position.y = Math.sin(loadingScreen.box.position.x);
   effcutout.render(loadingScreen.scene, loadingScreen.camera);
+  
   return; // Stop the function here.
 }
   requestAnimationFrame(animate)
