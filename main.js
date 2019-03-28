@@ -16,6 +16,8 @@ var ishuen, ishuenMixer, ishuenCk, ishuenCollide, ishuenIntersects
 var ishuenCheck=false
 var ishuenClick=0
 var ishuenBox = []
+//total score
+var totalScoreCk, totalScoreClick=0 
 //CollideBox
 var geometry = new THREE.BoxGeometry( 1,2,1 );
 var material = new THREE.MeshPhongMaterial({color:0xffffff, wireframe: true});
@@ -82,7 +84,7 @@ function init() {
       foo.style.fontSize = '35px';
       foo.innerHTML = "Loading: "+perload.toFixed(2)+"%<br>Total: "+total;
       if(loaded == total) foo.remove();
-      console.log('Loading file: '+item+'.\nLoaded: '+loaded+' of ' +total+' files.');
+      // console.log('Loading file: '+item+'.\nLoaded: '+loaded+' of ' +total+' files.');
     };
 
     loadingManager.onLoad = function(){
@@ -140,15 +142,14 @@ function init() {
         curveSegments: 1,
       });
       textMaterial = new THREE.MeshPhongMaterial( { color: 0xeecc00 } );
-      olayCK = new THREE.Mesh( textGeo, textMaterial );
-      // olayCK.position.copy(olayCollide.position);
-      olayCK.position.set(olayCollide.position.x-.3, olayCollide.position.y+1, olayCollide.position.z);
-      olayCK.castShadow = true;
-      olayCK.receiveShadow = true;
-      scene.add( olayCK );
+      olayCk = new THREE.Mesh( textGeo, textMaterial );
+      // olayCk.position.copy(olayCollide.position);
+      olayCk.position.set(olayCollide.position.x-.3, olayCollide.position.y+1, olayCollide.position.z);
+      olayCk.castShadow = true;
+      olayCk.receiveShadow = true;
+      scene.add( olayCk );
     });
   })
-
 
   //speng
   loader.load( './models/action_boy/scene.gltf', function ( object ) {
@@ -174,7 +175,7 @@ function init() {
     scene.add(spengCollide)
     spengBox.push(spengCollide)
     // speng text
-    loadertxt = new THREE.FontLoader();
+    loadertxt = new THREE.FontLoader(loadingManager);
     loadertxt.load('font/helvetiker_regular.typeface.json',(font) => {
       textGeo = new THREE.TextBufferGeometry( "0",{
         font: font,
@@ -183,11 +184,11 @@ function init() {
         curveSegments: 1,
       });
       textMaterial = new THREE.MeshPhongMaterial( { color: 0xeecc00 } );
-      spengCK = new THREE.Mesh( textGeo, textMaterial );
-      spengCK.position.set(spengCollide.position.x-.3, spengCollide.position.y+1, spengCollide.position.z);
-      spengCK.castShadow = true;
-      spengCK.receiveShadow = true;
-      scene.add( spengCK );
+      spengCk = new THREE.Mesh( textGeo, textMaterial );
+      spengCk.position.set(spengCollide.position.x-.3, spengCollide.position.y+1, spengCollide.position.z);
+      spengCk.castShadow = true;
+      spengCk.receiveShadow = true;
+      scene.add( spengCk );
     });
   } )
 
@@ -215,7 +216,7 @@ function init() {
     scene.add(mnoCollide)
     mnoBox.push(mnoCollide)
     // mno text
-    loadertxt = new THREE.FontLoader();
+    loadertxt = new THREE.FontLoader(loadingManager);
     loadertxt.load('font/helvetiker_regular.typeface.json',(font) => {
       textGeo = new THREE.TextBufferGeometry( "0",{
         font: font,
@@ -224,11 +225,11 @@ function init() {
         curveSegments: 1,
       });
       textMaterial = new THREE.MeshPhongMaterial( { color: 0xeecc00 } );
-      mnoCK = new THREE.Mesh( textGeo, textMaterial );
-      mnoCK.position.set(mnoCollide.position.x-.3, mnoCollide.position.y+1, mnoCollide.position.z);
-      mnoCK.castShadow = true;
-      mnoCK.receiveShadow = true;
-      scene.add( mnoCK );
+      mnoCk = new THREE.Mesh( textGeo, textMaterial );
+      mnoCk.position.set(mnoCollide.position.x-.3, mnoCollide.position.y+1, mnoCollide.position.z);
+      mnoCk.castShadow = true;
+      mnoCk.receiveShadow = true;
+      scene.add( mnoCk );
     });
   } )
   //ishuen
@@ -255,7 +256,7 @@ function init() {
     scene.add(ishuenCollide)
     ishuenBox.push(ishuenCollide)
     // ishuen text
-    loadertxt = new THREE.FontLoader();
+    loadertxt = new THREE.FontLoader(loadingManager);
     loadertxt.load('font/helvetiker_regular.typeface.json',(font) => {
       textGeo = new THREE.TextBufferGeometry( "0",{
         font: font,
@@ -264,13 +265,28 @@ function init() {
         curveSegments: 1,
       });
       textMaterial = new THREE.MeshPhongMaterial( { color: 0xeecc00 } );
-      ishuenCK = new THREE.Mesh( textGeo, textMaterial );
-      ishuenCK.position.set(ishuenCollide.position.x-.3, ishuenCollide.position.y+1, ishuenCollide.position.z);
-      ishuenCK.castShadow = true;
-      ishuenCK.receiveShadow = true;
-      scene.add( ishuenCK );
+      ishuenCk = new THREE.Mesh( textGeo, textMaterial );
+      ishuenCk.position.set(ishuenCollide.position.x-.3, ishuenCollide.position.y+1, ishuenCollide.position.z);
+      ishuenCk.castShadow = true;
+      ishuenCk.receiveShadow = true;
+      scene.add( ishuenCk );
     });
   } )
+  // total score
+  loadertxt = new THREE.FontLoader(loadingManager);
+  loadertxt.load('font/helvetiker_regular.typeface.json',(font) => {
+    textGeo = new THREE.TextBufferGeometry( "0",{
+      font: font,
+      size: .5,
+      height: .1,
+      curveSegments: 1,
+    });
+    textMaterial = new THREE.MeshPhongMaterial( { color: 0xee1111 } );
+    totalScoreCk = new THREE.Mesh( textGeo, textMaterial );
+    totalScoreCk.castShadow = true;
+    totalScoreCk.receiveShadow = true;
+    scene.add( totalScoreCk );
+  });
   renderer = new THREE.WebGLRenderer({antialias:true, preserveDrawingBuffer: true})
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setSize(window.innerWidth,window.innerHeight)
@@ -335,7 +351,7 @@ function saveAsImage() {
       var strMime = "image/jpeg";
       imgData = renderer.domElement.toDataURL(strMime);
 
-      saveFile(imgData.replace(strMime, strDownloadMime), "test.jpg");
+      saveFile(imgData.replace(strMime, strDownloadMime), "TekGame.jpg");
 
   } catch (e) {
       console.log(e);
@@ -450,9 +466,28 @@ function render(){
   // olay.position.y += 0.2*Math.sin(-.1)
   // olay.position.x += 0.01*Math.sin(THREE.Math.degToRad(-.1))
   // olay.position.z += 0.01*Math.cos(THREE.Math.degToRad(-.1))
-
+  console.log(olayCheck);
+  
+  if(olayCheck || spengCheck || mnoCheck || ishuenCheck){
+    scene.remove(totalScoreCk);
+    totalScoreClick = olayClick+spengClick+mnoClick+ishuenClick
+    loadertxt = new THREE.FontLoader();
+    loadertxt.load('font/helvetiker_regular.typeface.json',(font) => {
+    textGeo = new THREE.TextBufferGeometry( totalScoreClick,{
+      font: font,
+      size: .4,
+      height: .1,
+      curveSegments: 1,
+      });
+      textMaterial = new THREE.MeshPhongMaterial( { color: 0xee1111 } );
+      totalScoreCk = new THREE.Mesh( textGeo, textMaterial );
+      totalScoreCk.castShadow = true;
+      totalScoreCk.receiveShadow = true;
+      scene.add( totalScoreCk );
+    });
+  }
   if(olayCheck){
-    scene.remove(olayCK);
+    scene.remove(olayCk);
     olayCheck = false
     loadertxt = new THREE.FontLoader();
     loadertxt.load('font/helvetiker_regular.typeface.json',(font) => {
@@ -463,17 +498,17 @@ function render(){
       curveSegments: 1,
       });
       textMaterial = new THREE.MeshPhongMaterial( { color: 0xeecc00 } );
-      olayCK = new THREE.Mesh( textGeo, textMaterial );
+      olayCk = new THREE.Mesh( textGeo, textMaterial );
       // olayCK.position.copy(olayCollide.position);
-      olayCK.position.set(olayCollide.position.x-.3, olayCollide.position.y+1, olayCollide.position.z);
-      olayCK.castShadow = true;
-      olayCK.receiveShadow = true;
-      scene.add( olayCK );
+      olayCk.position.set(olayCollide.position.x-.3, olayCollide.position.y+1, olayCollide.position.z);
+      olayCk.castShadow = true;
+      olayCk.receiveShadow = true;
+      scene.add( olayCk );
       //console.log(loadertxt);
     });
   }
   if(spengCheck){
-    scene.remove(spengCK);
+    scene.remove(spengCk);
     spengCheck = false
     loadertxt = new THREE.FontLoader();
     loadertxt.load('font/helvetiker_regular.typeface.json',(font) => {
@@ -484,15 +519,15 @@ function render(){
       curveSegments: 1,
       });
       textMaterial = new THREE.MeshPhongMaterial( { color: 0xeecc00 } );
-      spengCK = new THREE.Mesh( textGeo, textMaterial );      
-      spengCK.position.set(spengCollide.position.x-.3, spengCollide.position.y+1, spengCollide.position.z);
-      spengCK.castShadow = true;
-      spengCK.receiveShadow = true;
-      scene.add( spengCK );
+      spengCk = new THREE.Mesh( textGeo, textMaterial );      
+      spengCk.position.set(spengCollide.position.x-.3, spengCollide.position.y+1, spengCollide.position.z);
+      spengCk.castShadow = true;
+      spengCk.receiveShadow = true;
+      scene.add( spengCk );
     });
   }
   if(mnoCheck){
-    scene.remove(mnoCK);
+    scene.remove(mnoCk);
     mnoCheck = false
     loadertxt = new THREE.FontLoader();
     loadertxt.load('font/helvetiker_regular.typeface.json',(font) => {
@@ -503,15 +538,15 @@ function render(){
       curveSegments: 1,
       });
       textMaterial = new THREE.MeshPhongMaterial( { color: 0xeecc00 } );
-      mnoCK = new THREE.Mesh( textGeo, textMaterial );
-      mnoCK.position.set(mnoCollide.position.x-.3, mnoCollide.position.y+1, mnoCollide.position.z);
-      mnoCK.castShadow = true;
-      mnoCK.receiveShadow = true;
-      scene.add( mnoCK );
+      mnoCk = new THREE.Mesh( textGeo, textMaterial );
+      mnoCk.position.set(mnoCollide.position.x-.3, mnoCollide.position.y+1, mnoCollide.position.z);
+      mnoCk.castShadow = true;
+      mnoCk.receiveShadow = true;
+      scene.add( mnoCk );
     });
   }
   if(ishuenCheck){
-    scene.remove(ishuenCK);
+    scene.remove(ishuenCk);
     ishuenCheck = false
     loadertxt = new THREE.FontLoader();
     loadertxt.load('font/helvetiker_regular.typeface.json',(font) => {
@@ -522,14 +557,13 @@ function render(){
       curveSegments: 1,
       });
       textMaterial = new THREE.MeshPhongMaterial( { color: 0xeecc00 } );
-      ishuenCK = new THREE.Mesh( textGeo, textMaterial );
-      ishuenCK.position.set(ishuenCollide.position.x-.3, ishuenCollide.position.y+1, ishuenCollide.position.z);
-      ishuenCK.castShadow = true;
-      ishuenCK.receiveShadow = true;
-      scene.add( ishuenCK );
+      ishuenCk = new THREE.Mesh( textGeo, textMaterial );
+      ishuenCk.position.set(ishuenCollide.position.x-.3, ishuenCollide.position.y+1, ishuenCollide.position.z);
+      ishuenCk.castShadow = true;
+      ishuenCk.receiveShadow = true;
+      scene.add( ishuenCk );
     });
   }
-
   //innerHTML
   speedHTML.innerText = "Speed: "+speedPlus.toFixed(2)
   effcutout.render(scene, camera)
