@@ -1,6 +1,4 @@
 
-console.log("Press Q to Display Box collide");
-
 var camera, scene, dlight, renderer, effcutout
 //Character
 var olay, olayMixer, olayCk, olayCollide, olayIntersects
@@ -32,8 +30,22 @@ var clock = new THREE.Clock()
 var mouseCoords = new THREE.Vector2()
 var raycaster = new THREE.Raycaster()
 console.log("Thank you\nCredit lib of three.js");
-console.log("screenshot by shivasaxena\n");
+console.log("screenshot by shivasaxena\n.\n..\n...");
+console.log("Press Q to Display Box collide");
 var strDownloadMime = "image/octet-stream";
+
+var loadingScreen = {
+	scene: new THREE.Scene(),
+	camera: new THREE.PerspectiveCamera(90, window.innerWidth/window.innerHeight, 0.1, 100),
+  box: new THREE.Mesh(
+		new THREE.BoxGeometry( 0.5, 0.5, 0.5 ),
+		new THREE.MeshStandardMaterial({ color:0x221155 })
+	)
+};
+var loadingManager = null;
+var RESOURCES_LOADED = false;
+var itemload, itemtotal;
+var loadpage=0;
 // - Main code -
 init()
 animate()
@@ -47,6 +59,37 @@ function init() {
   camera = new THREE.PerspectiveCamera(70,window.innerWidth/window.innerHeight,1,1000)
   camera.position.set(0,0,50)
   // console.log(camera);
+
+    // Set up the loading screen's scene.
+    loadingScreen.box.position.set(0,0,5);
+    loadingScreen.camera.lookAt(loadingScreen.box.position);
+    loadingScreen.scene.add(loadingScreen.box);
+    loadingScreen.scene.background = new THREE.Color(0x441166);
+
+    // Create a loading manager to set RESOURCES_LOADED when appropriate.
+    // Pass loadingManager to all resource loaders.
+    loadingManager = new THREE.LoadingManager();
+
+    loadingManager.onProgress = function(item, loaded, total){
+      //console.log(item, loaded, total);
+      itemload = loaded;
+      itemtotal = total;
+      foo = document.createElement('foo');
+      foo.style.position = 'absolute';
+      foo.style.top = '100px';
+      foo.style.textAlign = 'center';
+      foo.style.width = '100%'
+      foo.style.color = '#990000';
+      foo.style.fontSize = '15px';
+      foo.innerHTML = "Loading item: "+itemload+" of "+itemtotal+" <br>Just a minute";
+      if(itemload == itemtotal) foo.remove();
+      console.log('Loading file: '+item+'.\nLoaded: '+loaded+' of ' +total+' files.');
+    };
+
+    loadingManager.onLoad = function(){
+      console.log("loaded all resources");
+      RESOURCES_LOADED = true;
+    };
 
   dlight = new THREE.DirectionalLight( 0xffffff, 1 )
   dlight.position.set( -10, 10, 15 )
@@ -62,7 +105,7 @@ function init() {
   dlight.shadow.mapSize.y = 1024
   scene.add(dlight)
   // model
-  var loader = new THREE.GLTFLoader()
+  var loader = new THREE.GLTFLoader(loadingManager)
   // olay model
   loader.load( './models/drum_boy/scene.gltf', (object) => {
     var animations = object.animations
@@ -89,7 +132,7 @@ function init() {
     scene.add(olayCollide)
     olayBox.push(olayCollide)
     // olay text
-    loadertxt = new THREE.FontLoader();
+    loadertxt = new THREE.FontLoader(loadingManager);
     loadertxt.load('font/helvetiker_regular.typeface.json',(font) => {
       textGeo = new THREE.TextBufferGeometry( "0",{
         font: font,
