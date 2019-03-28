@@ -1,4 +1,3 @@
-
 var camera, scene, dlight, renderer, effcutout
 //Character
 var olay, olayMixer, olayCk, olayCollide, olayIntersects
@@ -40,7 +39,8 @@ var loadingScreen = {
   box: new THREE.Mesh(
 		new THREE.BoxGeometry( 0.5, 0.5, 0.5 ),
 		new THREE.MeshStandardMaterial({ color:0x221155 })
-	)
+  ),
+  hemiLight: new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 )
 };
 var loadingManager = null;
 var RESOURCES_LOADED = false;
@@ -64,6 +64,7 @@ function init() {
     loadingScreen.box.position.set(0,0,5);
     loadingScreen.camera.lookAt(loadingScreen.box.position);
     loadingScreen.scene.add(loadingScreen.box);
+    loadingScreen.scene.add(loadingScreen.hemiLight);
     loadingScreen.scene.background = new THREE.Color(0x441166);
 
     // Create a loading manager to set RESOURCES_LOADED when appropriate.
@@ -407,6 +408,16 @@ function onDocumentMouseDown(event){
 
 }
 function animate(){
+    // This block runs while resources are loading.
+if( RESOURCES_LOADED == false ){
+  requestAnimationFrame(animate);
+  // loadingScreen.box.position.x -= 0.05;
+  loadingScreen.box.rotation.y -= 0.05;
+  // if( loadingScreen.box.position.x < -10 ) loadingScreen.box.position.x = 10;
+  // loadingScreen.box.position.y = Math.sin(loadingScreen.box.position.x);
+  effcutout.render(loadingScreen.scene, loadingScreen.camera);
+  return; // Stop the function here.
+}
   requestAnimationFrame(animate)
 
   render()
