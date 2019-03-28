@@ -38,8 +38,8 @@ var strDownloadMime = "image/octet-stream";
 var loadingScreen = {
 	scene: new THREE.Scene(),
 	camera: new THREE.PerspectiveCamera(90, window.innerWidth/window.innerHeight, 0.1, 100),
-  box: new THREE.Mesh( new THREE.BoxGeometry( 0.5, 0.5, 0.5 ), new THREE.MeshStandardMaterial({ color:0x221155 })),
-  hemiLight: new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 )
+  box: new THREE.Mesh( new THREE.BoxGeometry( 1,1,1 ), new THREE.MeshPhongMaterial({ color:0x221155 })),
+  hemiLight: new THREE.HemisphereLight( 0xff1111, 0xff1111, 0.6 )
 };
 var loadingManager = null;
 var RESOURCES_LOADED = false;
@@ -277,7 +277,7 @@ function init() {
   loadertxt.load('font/helvetiker_regular.typeface.json',(font) => {
     textGeo = new THREE.TextBufferGeometry( "0",{
       font: font,
-      size: .5,
+      size: .7,
       height: .1,
       curveSegments: 1,
     });
@@ -428,8 +428,11 @@ if( RESOURCES_LOADED == false ){
   // loadingScreen.box.position.x -= 0.05;
   loadingScreen.box.rotation.x -= 0.05;
   loadingScreen.box.rotation.y -= 0.05;
-  // if( loadingScreen.box.position.x < -10 ) loadingScreen.box.position.x = 10;
-  // loadingScreen.box.position.y = Math.sin(loadingScreen.box.position.x);
+  loadingScreen.box.scale.x -= 0.05;
+  loadingScreen.box.scale.y -= 0.05;
+  loadingScreen.box.scale.z -= 0.05;
+  if( loadingScreen.box.scale.x < -10 ) loadingScreen.box.scale.set(1,1,1);
+  
   effcutout.render(loadingScreen.scene, loadingScreen.camera);
   
   return; // Stop the function here.
@@ -466,8 +469,6 @@ function render(){
   // olay.position.y += 0.2*Math.sin(-.1)
   // olay.position.x += 0.01*Math.sin(THREE.Math.degToRad(-.1))
   // olay.position.z += 0.01*Math.cos(THREE.Math.degToRad(-.1))
-  console.log(olayCheck);
-  
   if(olayCheck || spengCheck || mnoCheck || ishuenCheck){
     scene.remove(totalScoreCk);
     totalScoreClick = olayClick+spengClick+mnoClick+ishuenClick
@@ -475,7 +476,7 @@ function render(){
     loadertxt.load('font/helvetiker_regular.typeface.json',(font) => {
     textGeo = new THREE.TextBufferGeometry( totalScoreClick,{
       font: font,
-      size: .4,
+      size: .7,
       height: .1,
       curveSegments: 1,
       });
