@@ -43,7 +43,7 @@ var loadingManager = null;
 var RESOURCES_LOADED = false;
 var itemload, itemtotal;
 var loadpage=0;
-var foo;
+
 // - Main code -
 init()
 animate()
@@ -72,8 +72,6 @@ function init() {
     // document.body.appendChild(foo)
     loadingManager.onProgress = function(item, loaded, total){
       //console.log(item, loaded, total);
-      itemload = loaded;
-      itemtotal = total;
       perload = loaded/total*100
       foo = document.getElementById('foo');
       foo.style.position = 'absolute';
@@ -82,11 +80,9 @@ function init() {
       foo.style.width = '100%'
       foo.style.color = '#990000';
       foo.style.fontSize = '35px';
-      foo.innerHTML = "Loading: "+perload.toFixed(2)+"% <br>Just a minute";
-      
-      if(itemload == itemtotal) foo.remove();
+      foo.innerHTML = "Loading: "+perload.toFixed(2)+"%<br>Total: "+total;
+      if(loaded == total) foo.remove();
       console.log('Loading file: '+item+'.\nLoaded: '+loaded+' of ' +total+' files.');
-      
     };
 
     loadingManager.onLoad = function(){
