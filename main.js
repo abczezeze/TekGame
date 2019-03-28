@@ -287,6 +287,25 @@ function init() {
     totalScoreCk.receiveShadow = true;
     scene.add( totalScoreCk );
   });
+    // OBJmodel
+    var mtlLoader = new THREE.MTLLoader(loadingManager);
+    mtlLoader.load("models/4Jaturas_BR.mtl", function(materials){
+      materials.preload();
+      var objLoader = new THREE.OBJLoader(loadingManager);
+      objLoader.setMaterials(materials);
+      objLoader.load("models/4Jaturas_BR.obj", function(mesh){
+        mesh.traverse(function(node){
+          if( node instanceof THREE.Mesh ){
+            node.castShadow = true;
+            node.receiveShadow = true;
+          }
+        });
+        scene.add(mesh);
+        mesh.position.set(-1, -2, 0);
+        // mesh.rotation.y = -Math.PI/4;
+        mesh.scale.set(3,3,3);
+      });
+    });
   renderer = new THREE.WebGLRenderer({antialias:true, preserveDrawingBuffer: true})
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setSize(window.innerWidth,window.innerHeight)
