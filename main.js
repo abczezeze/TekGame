@@ -80,7 +80,7 @@ function init() {
       foo.style.textAlign = 'center';
       foo.style.width = '100%'
       foo.style.color = '#990000';
-      foo.style.fontSize = '15px';
+      foo.style.fontSize = '35px';
       foo.innerHTML = "Loading item: "+itemload+" of "+itemtotal+" <br>Just a minute";
       
       if(itemload == itemtotal) foo.remove();
