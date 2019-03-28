@@ -74,6 +74,7 @@ function init() {
       //console.log(item, loaded, total);
       itemload = loaded;
       itemtotal = total;
+      perload = loaded/total*100
       foo = document.getElementById('foo');
       foo.style.position = 'absolute';
       foo.style.top = '100px';
@@ -81,10 +82,11 @@ function init() {
       foo.style.width = '100%'
       foo.style.color = '#990000';
       foo.style.fontSize = '35px';
-      foo.innerHTML = "Loading item: "+itemload+" of "+itemtotal+" <br>Just a minute";
+      foo.innerHTML = "Loading: "+perload.toFixed(2)+"% <br>Just a minute";
       
       if(itemload == itemtotal) foo.remove();
       console.log('Loading file: '+item+'.\nLoaded: '+loaded+' of ' +total+' files.');
+      
     };
 
     loadingManager.onLoad = function(){
