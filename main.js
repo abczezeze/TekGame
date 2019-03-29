@@ -289,11 +289,11 @@ function init() {
   });
     // OBJmodel
     var mtlLoader = new THREE.MTLLoader(loadingManager);
-    mtlLoader.load("models/4Jaturas_BR.mtl", function(materials){
+    mtlLoader.load("models/instrument_musical.mtl", function(materials){
       materials.preload();
       var objLoader = new THREE.OBJLoader(loadingManager);
       objLoader.setMaterials(materials);
-      objLoader.load("models/4Jaturas_BR.obj", function(mesh){
+      objLoader.load("models/instrument_musical.obj", function(mesh){
         mesh.traverse(function(node){
           if( node instanceof THREE.Mesh ){
             node.castShadow = true;
@@ -301,7 +301,7 @@ function init() {
           }
         });
         scene.add(mesh);
-        mesh.position.set(-1, -2, 0);
+        mesh.position.set(0, -8, 0);
         // mesh.rotation.y = -Math.PI/4;
         mesh.scale.set(3,3,3);
       });
