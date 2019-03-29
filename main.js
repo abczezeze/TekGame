@@ -1,21 +1,17 @@
 var camera, scene, dlight, renderer, effcutout
-//Character
+//1Character 11var
 var olay, olayMixer, olayCk, olayCollide, olayIntersects
-var olayCheck=false
-var olayClick=0
-var olayBox = []
+var olaySound, olayAudioLoader, olayListener = new THREE.AudioListener();
+var olayCheck=false, olayClick=0, olayBox = []
 var speng, spengMixer, spengCk, spengCollide, spengIntersects
-var spengCheck=false
-var spengClick=0
-var spengBox = []
+var spengSound, spengAudioLoader, spengListener = new THREE.AudioListener();
+var spengCheck=false, spengClick=0, spengBox = []
 var mno, mnoMixer, mnoCk, mnoCollide, mnoIntersects
-var mnoCheck=false
-var mnoClick=0
-var mnoBox = []
+var mnoSound, mnoAudioLoader, mnoListener = new THREE.AudioListener();
+var mnoCheck=false, mnoClick=0, mnoBox = []
 var ishuen, ishuenMixer, ishuenCk, ishuenCollide, ishuenIntersects
-var ishuenCheck=false
-var ishuenClick=0
-var ishuenBox = []
+var ishuenSound, ishuenAudioLoader, ishuenListener = new THREE.AudioListener();
+var ishuenCheck=false, ishuenClick=0, ishuenBox = []
 //total score
 var totalScoreCk, totalScoreClick=0 
 //CollideBox
@@ -27,14 +23,17 @@ var speedPlus=0.5
 var speedHTML, htmlTime, time=0
 var radius=16
 var clock = new THREE.Clock()
-
+//sound
+var listener = new THREE.AudioListener();
+//raycast
 var mouseCoords = new THREE.Vector2()
 var raycaster = new THREE.Raycaster()
+//credit
 console.log("Thank you\nCredit lib of three.js");
 console.log("screenshot by shivasaxena\n.\n..\n...");
 console.log("Press Q to Display Box collide");
 var strDownloadMime = "image/octet-stream";
-
+//loadingScreen
 var loadingScreen = {
 	scene: new THREE.Scene(),
 	camera: new THREE.PerspectiveCamera(90, window.innerWidth/window.innerHeight, 0.1, 100),
@@ -58,9 +57,9 @@ function init() {
   scene.add(new THREE.AmbientLight(0x505050))
   camera = new THREE.PerspectiveCamera(70,window.innerWidth/window.innerHeight,1,1000)
   camera.position.set(0,0,50)
-  // console.log(camera);
 
-    // Set up the loading screen's scene.
+
+    loadingScreen// Set up the loading screen's scene.
     loadingScreen.box.position.set(0,0,5);
     loadingScreen.camera.lookAt(loadingScreen.box.position);
     loadingScreen.scene.add(loadingScreen.box);
@@ -91,6 +90,8 @@ function init() {
       console.log("loaded all resources");
       RESOURCES_LOADED = true;
     };
+
+
 
   dlight = new THREE.DirectionalLight( 0xffffff, 1 )
   dlight.position.set( -10, 10, 15 )
@@ -132,7 +133,7 @@ function init() {
     olayCollide.material.opacity = 0
     scene.add(olayCollide)
     olayBox.push(olayCollide)
-    // olay text
+    // olayText
     loadertxt = new THREE.FontLoader(loadingManager);
     loadertxt.load('font/helvetiker_regular.typeface.json',(font) => {
       textGeo = new THREE.TextBufferGeometry( "0",{
@@ -145,8 +146,15 @@ function init() {
       olayCk = new THREE.Mesh( textGeo, textMaterial );
       // olayCk.position.copy(olayCollide.position);
       olayCk.position.set(olayCollide.position.x-.3, olayCollide.position.y+1, olayCollide.position.z);
-      olayCk.castShadow = true;
-      olayCk.receiveShadow = true;
+      //olaySound
+      olayCk.add( olayListener );
+      olaySound = new THREE.Audio( olayListener );
+      olayAudioLoader = new THREE.AudioLoader(loadingManager);
+      olayAudioLoader.load( 'audio/drum.mp3', function( buffer ) {
+        olaySound.setBuffer( buffer );
+        olaySound.setLoop( false );
+        olaySound.setVolume( 0.7 );
+      }); 
       scene.add( olayCk );
     });
   })
@@ -186,8 +194,15 @@ function init() {
       textMaterial = new THREE.MeshPhongMaterial( { color: 0xeecc00 } );
       spengCk = new THREE.Mesh( textGeo, textMaterial );
       spengCk.position.set(spengCollide.position.x-.3, spengCollide.position.y+1, spengCollide.position.z);
-      spengCk.castShadow = true;
-      spengCk.receiveShadow = true;
+      //spengSound
+      spengCk.add( spengListener );
+      spengSound = new THREE.Audio( spengListener );
+      spengAudioLoader = new THREE.AudioLoader(loadingManager);
+      spengAudioLoader.load( 'audio/guitar0.mp3', function( buffer ) {
+        spengSound.setBuffer( buffer );
+        spengSound.setLoop( false );
+        spengSound.setVolume( 0.7 );
+      }); 
       scene.add( spengCk );
     });
   } )
@@ -227,8 +242,15 @@ function init() {
       textMaterial = new THREE.MeshPhongMaterial( { color: 0xeecc00 } );
       mnoCk = new THREE.Mesh( textGeo, textMaterial );
       mnoCk.position.set(mnoCollide.position.x-.3, mnoCollide.position.y+1, mnoCollide.position.z);
-      mnoCk.castShadow = true;
-      mnoCk.receiveShadow = true;
+      //mnoSound
+      mnoCk.add( mnoListener );
+      mnoSound = new THREE.Audio( mnoListener );
+      mnoAudioLoader = new THREE.AudioLoader(loadingManager);
+      mnoAudioLoader.load( 'audio/bass00.mp3', function( buffer ) {
+        mnoSound.setBuffer( buffer );
+        mnoSound.setLoop( false );
+        mnoSound.setVolume( 0.7 );
+      }); 
       scene.add( mnoCk );
     });
   } )
@@ -267,8 +289,15 @@ function init() {
       textMaterial = new THREE.MeshPhongMaterial( { color: 0xeecc00 } );
       ishuenCk = new THREE.Mesh( textGeo, textMaterial );
       ishuenCk.position.set(ishuenCollide.position.x-.3, ishuenCollide.position.y+1, ishuenCollide.position.z);
-      ishuenCk.castShadow = true;
-      ishuenCk.receiveShadow = true;
+      //ishuenSound
+      ishuenCk.add( ishuenListener );
+      ishuenSound = new THREE.Audio( ishuenListener );
+      ishuenAudioLoader = new THREE.AudioLoader(loadingManager);
+      ishuenAudioLoader.load( 'audio/Turntable0.mp3', function( buffer ) {
+        ishuenSound.setBuffer( buffer );
+        ishuenSound.setLoop( false );
+        ishuenSound.setVolume( 0.7 );
+      }); 
       scene.add( ishuenCk );
     });
   } )
@@ -285,6 +314,16 @@ function init() {
     totalScoreCk = new THREE.Mesh( textGeo, textMaterial );
     totalScoreCk.castShadow = true;
     totalScoreCk.receiveShadow = true;
+    //sound
+    totalScoreCk.add( listener );
+    var sound = new THREE.Audio( listener );
+    var audioLoader = new THREE.AudioLoader(loadingManager);
+    audioLoader.load( 'audio/4JaTuRus.mp3', function( buffer ) {
+        sound.setBuffer( buffer );
+        sound.setLoop( true );
+        sound.setVolume( 0.5 );
+        sound.play();
+    });    
     scene.add( totalScoreCk );
   });
     // OBJmodel
@@ -413,6 +452,7 @@ function onDocumentMouseDown(event){
     // intersects[0].object.material.color.setHex(0xffffff)
     olayCheck=true
     olayClick++
+    olaySound.play()
     olay.position.set(THREE.Math.randInt(-5,5),THREE.Math.randInt(-5,5),THREE.Math.randInt(-5,5))
     olayCollide.position.set(olay.position.x,olay.position.y+1,olay.position.z)
     speedPlus+=0.1
@@ -420,6 +460,7 @@ function onDocumentMouseDown(event){
   if(spengIntersects.length>0){
     spengCheck=true
     spengClick++
+    spengSound.play()
     speng.position.set(THREE.Math.randInt(-5,5),THREE.Math.randInt(-5,5),THREE.Math.randInt(-5,5))
     spengCollide.position.set(speng.position.x,speng.position.y+1,speng.position.z)
     speedPlus+=0.1
@@ -427,6 +468,7 @@ function onDocumentMouseDown(event){
   if(mnoIntersects.length>0){
     mnoCheck=true
     mnoClick++
+    mnoSound.play()
     mno.position.set(THREE.Math.randInt(-5,5),THREE.Math.randInt(-5,5),THREE.Math.randInt(-5,5))
     mnoCollide.position.set(mno.position.x,mno.position.y+1,mno.position.z)
     speedPlus+=0.1
@@ -434,6 +476,7 @@ function onDocumentMouseDown(event){
   if(ishuenIntersects.length>0){
     ishuenCheck=true
     ishuenClick++
+    ishuenSound.play()
     ishuen.position.set(THREE.Math.randInt(-5,5),THREE.Math.randInt(-5,5),THREE.Math.randInt(-5,5))
     ishuenCollide.position.set(ishuen.position.x,ishuen.position.y+1,ishuen.position.z)
     speedPlus+=0.1
