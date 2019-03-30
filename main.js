@@ -12,6 +12,8 @@ var mnoCheck=false, mnoClick=0, mnoBox = []
 var ishuen, ishuenMixer, ishuenCk, ishuenCollide, ishuenIntersects
 var ishuenSound, ishuenAudioLoader, ishuenListener = new THREE.AudioListener();
 var ishuenCheck=false, ishuenClick=0, ishuenBox = []
+//cloundModel
+var cloundModel
 //total score
 var totalScoreCk, totalScoreClick=0 
 //CollideBox
@@ -345,6 +347,24 @@ function init() {
         mesh.scale.set(3,3,3);
       });
     });
+    //cloundModel
+    for(let i = 0;i<7;i++){
+      console.log("cloud//Hyungjung Kim//Sketchfab");
+      var loader = new THREE.GLTFLoader(loadingManager)
+      loader.load( './models/low_poly_cloud_Hyungjung Kim/scene.gltf', (object) => {
+        cloundModel = object.scene
+        cloundModel.position.set(THREE.Math.randInt(-15,15),THREE.Math.randInt(-15,15),THREE.Math.randInt(-15,15))
+        cloundModel.scale.set(.05,.05,.05)
+        cloundModel.traverse((node) => {
+          if(node instanceof THREE.Mesh){
+            node.castShadow = true
+            node.resiveShadow = true
+            node.transparent = true
+            }
+          })
+          scene.add( cloundModel );
+      });
+    }
   renderer = new THREE.WebGLRenderer({antialias:true, preserveDrawingBuffer: true})
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setSize(window.innerWidth,window.innerHeight)
@@ -524,13 +544,10 @@ function render(){
   // camera.position.y = radius*Math.sin(THREE.Math.degToRad(theta))
   camera.position.z = radius*Math.cos(THREE.Math.degToRad(theta))
   camera.lookAt(scene.position)
-  // console.log(delta);
 
-  // camera.position.z = 15
-  // olay.position.x += Math.random()*Math.sin(-.1)
-  // olay.position.y += 0.2*Math.sin(-.1)
-  // olay.position.x += 0.01*Math.sin(THREE.Math.degToRad(-.1))
-  // olay.position.z += 0.01*Math.cos(THREE.Math.degToRad(-.1))
+  // cloundModel.position.x +=.05
+  // cloundModel.position.y = Math.sin(cloundModel.position.x)
+
   if(olayCheck || spengCheck || mnoCheck || ishuenCheck){
     scene.remove(totalScoreCk);
     totalScoreClick = olayClick+spengClick+mnoClick+ishuenClick
