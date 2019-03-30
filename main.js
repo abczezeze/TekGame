@@ -83,7 +83,8 @@ function init() {
       foo.style.width = '100%'
       foo.style.color = '#990000';
       foo.style.fontSize = '35px';
-      foo.innerHTML = "Loading: "+perload.toFixed(2)+"%<br>Total: "+total;
+      // foo.innerHTML = "Loading: "+perload.toFixed(2)+"%<br>Total: "+total;
+      foo.innerHTML = "Loading: "+perload.toFixed(2)+"%<br>Item: "+item+"<br>Total: "+total;
       if(loaded == total) foo.remove();
       // console.log('Loading file: '+item+'.\nLoaded: '+loaded+' of ' +total+' files.');
     };
