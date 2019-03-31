@@ -84,7 +84,7 @@ function init() {
       foo.style.color = '#990000';
       foo.style.fontSize = '35px';
       // foo.innerHTML = "Loading: "+perload.toFixed(2)+"%<br>Total: "+total;
-      foo.innerHTML = "Loading: "+perload.toFixed(2)+"%<br>Item: "+item+"<br>Total: "+total;
+      foo.innerHTML = "Loading: "+perload.toFixed(2)+"<br>Total: "+total+"%<br>Item: "+item;
       if(loaded == total) foo.remove();
       // console.log('Loading file: '+item+'.\nLoaded: '+loaded+' of ' +total+' files.');
     };
@@ -344,6 +344,13 @@ function init() {
         });
         scene.add(mesh);
         mesh.position.set(0, -8, 0);
+        for(let key in materials.materials){
+          // console.log(materials.materials[key].opacity)
+          materials.materials[key].transparent = true
+          materials.materials[key].opacity = .7
+        }
+        // for(let i = 0 ; i < materials.length ; i++){}
+        
         // mesh.rotation.y = -Math.PI/4;
         mesh.scale.set(3,3,3);
       });
@@ -360,9 +367,17 @@ function init() {
           if(node instanceof THREE.Mesh){
             node.castShadow = true
             node.resiveShadow = true
-            node.transparent = true
+            node.material.opacity = 0.5
+            node.material.transparent = true
+            // console.log(node)
             }
           })
+          
+          // for(let key in cloundModel){
+          //   // console.log(materials.materials[key])
+          //   // materials.materials[key].transparent = true
+          //   // materials.materials[key].opacity = .7
+          // }
           scene.add( cloundModel );
       });
     }
