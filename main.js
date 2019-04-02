@@ -18,7 +18,8 @@ var cloundModel
 var totalScoreCk, totalScoreClick=0 
 //CollideBox
 var geometry = new THREE.BoxGeometry( 1,2,1 );
-var material = new THREE.MeshPhongMaterial({color:0xffffff, wireframe: true});
+// var material = new THREE.MeshPhongMaterial({color:0x0000ff, transparent: true, opacity:0, wireframe:true});
+var material = new THREE.MeshPhongMaterial({transparent: true, opacity:0});
 
 var theta=0
 var speedPlus=0.5
@@ -132,8 +133,6 @@ function init() {
     olayCollide =  new THREE.Mesh(geometry,material);
     olayCollide.name = "olayCollide"
     olayCollide.position.set(olay.position.x,olay.position.y+1,olay.position.z)
-    olayCollide.material.transparent = true
-    olayCollide.material.opacity = 0
     scene.add(olayCollide)
     olayBox.push(olayCollide)
     // olayText
