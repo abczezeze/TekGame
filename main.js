@@ -155,7 +155,7 @@ function init() {
       olayAudioLoader.load( 'audio/drum.mp3', function( buffer ) {
         olaySound.setBuffer( buffer );
         olaySound.setLoop( false );
-        olaySound.setVolume( 0.9 );
+        olaySound.setVolume( 2 );
       }); 
       scene.add( olayCk );
     });
