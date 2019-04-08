@@ -89,7 +89,7 @@ function init() {
       foo.style.color = '#990000';
       foo.style.fontSize = '35px';
       // foo.innerHTML = "Loading: "+perload.toFixed(2)+"%<br>Total: "+total;
-      foo.innerHTML = "Loading: "+perload.toFixed(2)+"%<br>Total: "+total+"<br>Item: "+item;
+      foo.innerHTML = "Loading: "+perload.toFixed(2)+"%<br>Total: "+total+"<br>Item: "+item+"<br>F12: Credit";
       if(loaded == total) foo.remove();
       // console.log('Loading file: '+item+'.\nLoaded: '+loaded+' of ' +total+' files.');
     };
@@ -439,6 +439,14 @@ function init() {
   document.body.appendChild(saveLink);
   console.log("------------------------------------");
   console.log("Press Q to Display Box collide");
+  console.log("  ------   ---------   --------   -------- ---------");
+  console.log("---------- --     --- ----------- -------- -----------  -----------");
+  console.log("---    --- --     --  --                -- ---     ----         --");
+  console.log("---------- ---------  --          -------- ---     ----       --");
+  console.log("---------- --     --  --                -- ---     ---      --");
+  console.log("---    --- --     --- ----------- -------- ----------     --");
+  console.log("---    --- ---------   --------   -------- ---------    -----------");
+  
   document.getElementById("saveLink").addEventListener('click', saveAsImage);
 
   document.addEventListener('mousedown',onDocumentMouseDown,false)
