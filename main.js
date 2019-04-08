@@ -12,10 +12,14 @@ var mnoCheck=false, mnoClick=0, mnoBox = []
 var ishuen, ishuenMixer, ishuenCk, ishuenCollide, ishuenIntersects
 var ishuenSound, ishuenAudioLoader, ishuenListener = new THREE.AudioListener();
 var ishuenCheck=false, ishuenClick=0, ishuenBox = []
-//cloundModel
+//skb Model
 var cloundModel
+//threejs model
+var FlamingoModel, FlamingoMixer=[]
+//obj model
+var instrumentMusical, instrumentMusicalMate
 //total score
-var totalScoreCk, totalScoreClick=0 
+var totalScoreCk, totalScoreClick=0
 //CollideBox
 var geometry = new THREE.BoxGeometry( 1,2,1 );
 // var material = new THREE.MeshPhongMaterial({color:0x0000ff, transparent: true, opacity:0, wireframe:true});
@@ -33,8 +37,8 @@ var mouseCoords = new THREE.Vector2()
 var raycaster = new THREE.Raycaster()
 //credit
 console.log("Thank you\nCredit lib of three.js");
-console.log("screenshot by shivasaxena\n.\n..\n...");
-console.log("Press Q to Display Box collide");
+console.log("screenshot by shivasaxena");
+
 var strDownloadMime = "image/octet-stream";
 //loadingScreen
 var loadingScreen = {
@@ -156,7 +160,7 @@ function init() {
         olaySound.setBuffer( buffer );
         olaySound.setLoop( false );
         olaySound.setVolume( 2 );
-      }); 
+      });
       scene.add( olayCk );
     });
   })
@@ -204,7 +208,7 @@ function init() {
         spengSound.setBuffer( buffer );
         spengSound.setLoop( false );
         spengSound.setVolume( 0.7 );
-      }); 
+      });
       scene.add( spengCk );
     });
   } )
@@ -252,7 +256,7 @@ function init() {
         mnoSound.setBuffer( buffer );
         mnoSound.setLoop( false );
         mnoSound.setVolume( 0.7 );
-      }); 
+      });
       scene.add( mnoCk );
     });
   } )
@@ -299,7 +303,7 @@ function init() {
         ishuenSound.setBuffer( buffer );
         ishuenSound.setLoop( false );
         ishuenSound.setVolume( 0.7 );
-      }); 
+      });
       scene.add( ishuenCk );
     });
   } )
@@ -325,7 +329,7 @@ function init() {
         sound.setLoop( true );
         sound.setVolume( 0.5 );
         sound.play();
-    });    
+    });
     scene.add( totalScoreCk );
   });
     // OBJmodel
@@ -343,15 +347,14 @@ function init() {
         });
         scene.add(mesh);
         mesh.position.set(0, -8, 0);
+        instrumentMusicalMate = materials.materials
         for(let key in materials.materials){
           // console.log(materials.materials[key].opacity)
           materials.materials[key].transparent = true
           materials.materials[key].opacity = .7
         }
-        // for(let i = 0 ; i < materials.length ; i++){}
-        
-        // mesh.rotation.y = -Math.PI/4;
         mesh.scale.set(3,3,3);
+        instrumentMusical = mesh
       });
     });
     //cloundModel
@@ -362,6 +365,7 @@ function init() {
         cloundModel = object.scene
         cloundModel.position.set(THREE.Math.randInt(-15,15),THREE.Math.randInt(-15,15),THREE.Math.randInt(-15,15))
         cloundModel.scale.set(.05,.05,.05)
+        cloundModel.rotation.y = Math.random()*Math.PI*4
         cloundModel.traverse((node) => {
           if(node instanceof THREE.Mesh){
             node.castShadow = true
@@ -371,15 +375,34 @@ function init() {
             // console.log(node)
             }
           })
-          
-          // for(let key in cloundModel){
-          //   // console.log(materials.materials[key])
-          //   // materials.materials[key].transparent = true
-          //   // materials.materials[key].opacity = .7
-          // }
           scene.add( cloundModel );
       });
     }
+    //birdModel
+    console.log("Flamingo//threejs");
+    for(let i = 0;i<7;i++){
+      var loader = new THREE.GLTFLoader(loadingManager)
+      loader.load( './models/Flamingo.glb', (object) => {
+        let animations = object.animations
+        FlamingoModel = object.scene
+        FlamingoModel.position.set(THREE.Math.randInt(-15,15),THREE.Math.randInt(-15,15),THREE.Math.randInt(-15,15))
+        FlamingoModel.rotation.y = Math.random()*Math.PI*4
+        FlamingoModel.scale.set(.03,.03,.03)
+        FlamingoModel.traverse((node) => {
+          if(node instanceof THREE.Mesh){
+            node.castShadow = true
+            node.resiveShadow = true
+            node.material.opacity = 0.5
+            node.material.transparent = true
+            }
+          })
+          FlamingoMixer[i] = new THREE.AnimationMixer( FlamingoModel )
+          var FlamingoAct = FlamingoMixer[i].clipAction(animations[0])
+          FlamingoAct.play()
+          scene.add( FlamingoModel );
+      });
+    }
+
   renderer = new THREE.WebGLRenderer({antialias:true, preserveDrawingBuffer: true})
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setSize(window.innerWidth,window.innerHeight)
@@ -414,7 +437,8 @@ function init() {
   saveLink.style.textShadow = '1 1 6px #000'
   saveLink.innerHTML = '<a href="#" id="saveLink">Screenshot</a>';
   document.body.appendChild(saveLink);
-
+  console.log("------------------------------------");
+  console.log("Press Q to Display Box collide");
   document.getElementById("saveLink").addEventListener('click', saveAsImage);
 
   document.addEventListener('mousedown',onDocumentMouseDown,false)
@@ -528,10 +552,10 @@ if( RESOURCES_LOADED == false ){
   loadingScreen.box.scale.x -= 0.05;
   loadingScreen.box.scale.y -= 0.05;
   loadingScreen.box.scale.z -= 0.05;
-  if( loadingScreen.box.scale.x < -10 ) loadingScreen.box.scale.set(1,1,1);
-  
+  if( loadingScreen.box.scale.x < -3 ) loadingScreen.box.scale.set(1,1,1);
+
   effcutout.render(loadingScreen.scene, loadingScreen.camera);
-  
+
   return; // Stop the function here.
 }
   requestAnimationFrame(animate)
@@ -542,17 +566,15 @@ if( RESOURCES_LOADED == false ){
 function render(){
   theta += speedPlus
   var delta = clock.getDelta()
-  if ( olayMixer !== undefined ) {
-    olayMixer.update(delta)
-  }
-  if ( spengMixer !== undefined ) {
-    spengMixer.update(delta)
-  }
-  if ( mnoMixer !== undefined ) {
-    mnoMixer.update(delta)
-  }
-  if ( ishuenMixer !== undefined ) {
+  if ( ishuenMixer !== undefined && mnoMixer !== undefined && spengMixer !== undefined && olayMixer !== undefined) {
     ishuenMixer.update(delta)
+    mnoMixer.update(delta)
+    spengMixer.update(delta)
+    olayMixer.update(delta)
+    }
+
+  for(let i=0;i<FlamingoMixer.length;i++){
+    FlamingoMixer[i].update(delta)
   }
 
   camera.position.x = radius*Math.sin(THREE.Math.degToRad(theta))
@@ -614,7 +636,7 @@ function render(){
       curveSegments: 1,
       });
       textMaterial = new THREE.MeshPhongMaterial( { color: 0xeecc00 } );
-      spengCk = new THREE.Mesh( textGeo, textMaterial );      
+      spengCk = new THREE.Mesh( textGeo, textMaterial );
       spengCk.position.set(spengCollide.position.x-.3, spengCollide.position.y+1, spengCollide.position.z);
       spengCk.castShadow = true;
       spengCk.receiveShadow = true;
@@ -659,6 +681,10 @@ function render(){
       scene.add( ishuenCk );
     });
   }
+  // console.log(instrumentMusicalMate);
+  // for(let key in instrumentMusicalMate){
+  //   instrumentMusicalMate[key].opacity = totalScoreClick/100*100
+  // }  
   //innerHTML
   speedHTML.innerText = "Speed: "+speedPlus.toFixed(2)
   effcutout.render(scene, camera)
