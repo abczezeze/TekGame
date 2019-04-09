@@ -358,8 +358,8 @@ function init() {
       });
     });
     //cloundModel
+    console.log("cloud//Hyungjung Kim//Sketchfab");
     for(let i = 0;i<7;i++){
-      console.log("cloud//Hyungjung Kim//Sketchfab");
       var loader = new THREE.GLTFLoader(loadingManager)
       loader.load( './models/low_poly_cloud_Hyungjung Kim/scene.gltf', (object) => {
         cloundModel = object.scene
@@ -437,15 +437,17 @@ function init() {
   saveLink.style.textShadow = '1 1 6px #000'
   saveLink.innerHTML = '<a href="#" id="saveLink">Screenshot</a>';
   document.body.appendChild(saveLink);
-  console.log("------------------------------------");
+  console.log("-------------------------------------------------------------");
   console.log("Press Q to Display Box collide");
-  console.log("  ------   ---------   --------   -------- ---------");
-  console.log("---------- --     --- ----------- -------- -----------  -----------");
-  console.log("---    --- --     --  --                -- ---     ----         --");
-  console.log("---------- ---------  --          -------- ---     ----       --");
-  console.log("---------- --     --  --                -- ---     ---      --");
-  console.log("---    --- --     --- ----------- -------- ----------     --");
-  console.log("---    --- ---------   --------   -------- ---------    -----------");
+  console.log("-------------------------------------------------------------");
+  console.log("   ----    ------      -------    -------   -------");
+  console.log(" --------  ---------  ---------  --------- ---------     -------");
+  console.log("---    --- --     --- --      -  --     -- --       --  ---------");
+  console.log("--      -- ---------  --            -----  --        -- -    --");
+  console.log("---------- ---------  --            -----  --        --    --");
+  console.log("---------- --     --- --      -  --     -- --       --   --      -");
+  console.log("--      -- ---------  ---------  --------- ---------    ----------");
+  console.log("--      --  ------     -------    ------    -------      --------");
   
   document.getElementById("saveLink").addEventListener('click', saveAsImage);
 
