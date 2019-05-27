@@ -90,7 +90,20 @@ function init() {
       foo.style.fontSize = '35px';
       // foo.innerHTML = "Loading: "+perload.toFixed(2)+"%<br>Total: "+total;
       foo.innerHTML = "Loading: "+perload.toFixed(2)+"%<br>Total: "+total+"<br>Item: "+item+"<br>F12: Credit";
-      if(loaded == total) foo.remove();
+
+      fooBar = document.getElementById("fooBar");
+      fooBar.style.position = 'absolute'
+      fooBar.style.bottom = '200px'
+      // fooBar.style.width = '100px'
+      fooBar.style.height = '20px'
+      // fooBar.style.border = '4px solid gray'      
+      fooBar.style.background = "#101010";
+      fooBar.style.textAlign = 'center';
+      fooBar.innerHTML = fooBar.style.width = ''+perload*100
+      if(loaded == total){
+        foo.remove();
+        fooBar.remove();
+      }
       // console.log('Loading file: '+item+'.\nLoaded: '+loaded+' of ' +total+' files.');
     };
 
@@ -207,7 +220,7 @@ function init() {
       spengAudioLoader.load( 'audio/guitar0.mp3', function( buffer ) {
         spengSound.setBuffer( buffer );
         spengSound.setLoop( false );
-        spengSound.setVolume( 0.7 );
+        spengSound.setVolume( 2 );
       });
       scene.add( spengCk );
     });
@@ -441,13 +454,13 @@ function init() {
   console.log("Press Q to Display Box collide");
   console.log("-------------------------------------------------------------");
   console.log("   ----    ------      -------    -------   -------");
-  console.log(" --------  ---------  ---------  --------- ---------     -------");
-  console.log("---    --- --     --- --      -  --     -- --       --  ---------");
-  console.log("--      -- ---------  --            -----  --        -- -    --");
-  console.log("---------- ---------  --            -----  --        --    --");
-  console.log("---------- --     --- --      -  --     -- --       --   --      -");
-  console.log("--      -- ---------  ---------  --------- ---------    ----------");
-  console.log("--      --  ------     -------    ------    -------      --------");
+  console.log(" --------  ---------  ---------  --------- ---------");
+  console.log("---    --- --     --- --      -  --     -- --       -- ");
+  console.log("--      -- ---------  --            -----  --        --  --------");
+  console.log("---------- ---------  --            -----  --        --      --");
+  console.log("---------- --     --- --      -  --     -- --       --     --");
+  console.log("--      -- ---------  ---------  --------- ---------     --");
+  console.log("--      --  ------     -------    ------    -------    ---------");
   
   document.getElementById("saveLink").addEventListener('click', saveAsImage);
 
