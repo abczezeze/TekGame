@@ -8,6 +8,6 @@ Demo: https://abc3dz.github.io/TekGame/
 <br>Country
 <br>Count time
 <br>Date
-<br><img src="https://github.com/abc3dz/TekGame/blob/master/screenshot/ss01.gif" width="30%" height="30%">
+<br><img src="https://github.com/abc3dz/TekGame/blob/master/screenshot/20200306.gif" width="30%" height="30%">
 <br><br>2D game by Godot
 <br>https://www.kongregate.com/games/ABC3Dz/tek-game
