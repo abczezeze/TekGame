@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>.
+  </head>
+  <body>
+    <div  class="container">
+      <h1>Top Ten Charts</h1>
+    	<table class="table table-bordered" id='tbresult'>
+	    <tr><th>Number</th><th>Player</th><th>Coutry</th><th>Score</th><th>Count time</th><th>Date/Time</th></tr>
+      </table>
+  </div>
+
+  <div  class="container_player">
+      <h1>Your Charts</h1>
+      <table class="table table-bordered" id='tbresult_player'>
+        <tr><th>Number</th><th>Player</th><th>Coutry</th><th>Score</th><th>Count time</th><th>Date/Time</tr>
+  </table>
+</div>
+  </body>
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyAmMQlxW9POFpqRMiDS7o7wFMDHgvHtZmY",
+      authDomain: "tekgame-afb33.firebaseapp.com",
+      databaseURL: "https://tekgame-afb33.firebaseio.com",
+      projectId: "tekgame-afb33",
+      storageBucket: "tekgame-afb33.appspot.com",
+      messagingSenderId: "97542736002",
+      appId: "1:97542736002:web:f6a52c3cc243f6e9e90c9b",
+      measurementId: "G-XPE5QGHDE0"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    //console.log(firebase);
+    </script>
+    <script src=fdb.js></script>
+  </body>
+</html>

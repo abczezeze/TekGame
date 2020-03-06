@@ -5,6 +5,12 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<link rel="stylesheet" href="index.css">
+		<script
+		src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+		<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js" integrity="sha384-vhJnz1OVIdLktyixHY4Uk3OHEwdQqPppqYR8+5mjsauETgLOcEynD9oPHhhz18Nw" crossorigin="anonymous"></script>			 -->
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">		
 	</head>
 	<!-- <body onload="openFullscreen()"> -->
 	<body>
@@ -17,6 +23,32 @@
 		<script src="js/GLTFLoader.js"></script>
 		<script src="js/OBJLoader.js"></script>
 		<script src="js/MTLLoader.js"></script>
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+			https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
+
+		<script>
+		// Your web app's Firebase configuration
+		var firebaseConfig = {
+			apiKey: "AIzaSyAmMQlxW9POFpqRMiDS7o7wFMDHgvHtZmY",
+			authDomain: "tekgame-afb33.firebaseapp.com",
+			databaseURL: "https://tekgame-afb33.firebaseio.com",
+			projectId: "tekgame-afb33",
+			storageBucket: "tekgame-afb33.appspot.com",
+			messagingSenderId: "97542736002",
+			appId: "1:97542736002:web:f6a52c3cc243f6e9e90c9b",
+			measurementId: "G-XPE5QGHDE0"
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		firebase.analytics();
+		//console.log(firebase);
+		</script>
+
 		<script src="main.js"></script>
 		<script>
 		var elem = document.documentElement;
@@ -32,6 +64,7 @@
 		  }
 		}
 		</script>
+		
 
 		<!--<div id="note">Note: Internet Explorer 10 and earlier does not support the msRequestFullscreen() method.</div>-->
 	</body>

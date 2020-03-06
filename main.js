@@ -52,6 +52,15 @@ var RESOURCES_LOADED = false;
 var itemload, itemtotal;
 var loadpage=0;
 
+//DataFirebase
+var playerIp = "1.1.1.1"
+var playerCoutry = "Country"
+var gamescore = 0
+var gametime = 0
+var firebaseDT = new firebase.firestore.Timestamp.now()
+//Html
+var htmlTime, htmlScore, htmlPlayer, htmlCountry, htmlIp, btn
+
 // - Main code -
 init()
 animate()
@@ -415,7 +424,7 @@ function init() {
           scene.add( FlamingoModel );
       });
     }
-
+    
   renderer = new THREE.WebGLRenderer({antialias:true, preserveDrawingBuffer: true})
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setSize(window.innerWidth,window.innerHeight)
@@ -428,7 +437,7 @@ function init() {
   //speedhtml
   speedHTML = document.createElement("speedHTML")
   speedHTML.style.position = 'absolute'
-  speedHTML.style.bottom = '40px'
+  speedHTML.style.top = '110px'
   speedHTML.style.textAlign = 'left'
   speedHTML.style.color = '#00aadd'
   speedHTML.style.textShadow = '0 0 4px #000'
@@ -436,20 +445,103 @@ function init() {
   //timehtml
   htmlTime = document.createElement("htmlTime")
   htmlTime.style.position = 'absolute'
-  htmlTime.style.bottom = '25px'
+  htmlTime.style.top = '90px'
   htmlTime.style.textAlign = 'left'
   htmlTime.style.color = '#f747c7'
   htmlTime.style.textShadow = '0 0 4px #000'
   document.body.appendChild(htmlTime);
+  //htmlIp
+  htmlIp = document.createElement("htmlIp")
+  htmlIp.style.position = 'absolute'
+  htmlIp.style.top = '70px'
+  htmlIp.style.textAlign = 'left'
+  htmlIp.style.color = '#ffa16c'
+  htmlIp.style.textShadow = '0 0 4px #000'
+  document.body.appendChild(htmlIp);  
+  //htmlCountry
+  htmlCountry = document.createElement("htmlCountry")
+  htmlCountry.style.position = 'absolute'
+  htmlCountry.style.top = '50px'
+  htmlCountry.style.textAlign = 'left'
+  htmlCountry.style.color = '#aaaaaa'
+  htmlCountry.style.textShadow = '0 0 4px #000'
+  document.body.appendChild(htmlCountry);
   //screenshot
   var saveLink = document.createElement('div');
   saveLink.style.position = 'absolute';
-  saveLink.style.bottom = '10px';
+  saveLink.style.top = '30px';
   saveLink.style.color = 'white !important';
   saveLink.style.textAlign = 'left';
   saveLink.style.textShadow = '1 1 6px #000'
   saveLink.innerHTML = '<a href="#" id="saveLink">Screenshot</a>';
   document.body.appendChild(saveLink);
+
+  $.getJSON('https://ipapi.co/json/', function(data) {
+    // console.log(JSON.stringify(data, null, 2));
+      // getip.innerText = "PlayerIP: "+data.ip
+      playerIp = data.ip
+      htmlIp.innerText = "Ip: "+playerIp
+
+      playerCoutry = data.country_name
+      htmlCountry.innerText = "Country: "+playerCoutry
+      // console.log('cou:',playerCoutry);
+  });
+  cantRec = document.createElement("cantRec")
+  cantRec.style.position = 'absolute'
+  cantRec.style.bottom = '90px'
+  cantRec.style.textAlign = 'left'
+  cantRec.style.color = '#4ef1d3'
+  cantRec.style.textShadow = '0 0 4px #000'
+
+  // console.log('da_ti: ',firebaseDT)
+
+  btn = document.createElement("button");
+  btn.innerHTML = "Record Score";
+  btn.setAttribute('title','Record & Reset a score')
+  btn.setAttribute('class','button')
+  btn.setAttribute('id','opener')
+  //btn.disabled = true
+  btn.onclick = function(){  
+    // alert('Thank you for playing');
+    if(gamescore <= 5){
+      console.log("Your score more than 5. Please!")
+      cantRec.innerHTML = 'Your score more than 5. Please!'
+      setTimeout(function(){
+        cantRec.innerHTML = '';
+      }, 5000);
+      document.body.appendChild(cantRec);
+      
+    }else{
+      // console.log("Record score = ",gamescore)
+      cantRec.innerHTML = 'Record score: '+gamescore
+      setTimeout(function(){
+        cantRec.innerHTML = '';
+      }, 3000);
+      document.body.appendChild(cantRec);
+      // let currentTime=new Date()
+      // console.log('JS date: ',currentTime)
+      //let firebaseDT = new firebase.firestore.Timestamp.now()
+      //console.log('da_ti: ',firebaseDT)
+      addData(playerIp,playerCoutry,gamescore,gametime,firebaseDT)
+      btn.remove();
+      setTimeout(function(){
+        location.reload();
+      }, 3000);
+    }    
+     //console.log('1Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Ip:',playerIp,'Cou:',playerCoutry);
+  };
+  btn.onmouseover = function()  {
+    this.style.backgroundColor = "blue";
+  }  
+  document.body.appendChild(btn);
+  // console.log(btn.style)
+  let linkbtn = document.createElement("a");
+  linkbtn.innerHTML = "Top Charts";
+  linkbtn.setAttribute('href','./indexdb.html')
+  linkbtn.setAttribute('class','linkbtn')
+  linkbtn.setAttribute('target','_blank')
+  document.body.appendChild(linkbtn);
+
   console.log("-------------------------------------------------------------");
   console.log("Press Q to Display Box collide");
   console.log("-------------------------------------------------------------");
@@ -626,6 +718,7 @@ function render(){
       scene.add( totalScoreCk );
     });
   }
+  gamescore = totalScoreClick;
   if(olayCheck){
     scene.remove(olayCk);
     olayCheck = false
@@ -713,5 +806,18 @@ function render(){
   effcutout.render(scene, camera)
   //renderer.render(scene, camera)
   time += delta
+  gametime = time.toFixed( 2 )
   htmlTime.innerHTML = "PlayTime: "+time.toFixed( 2 )
+  //console.log('Sc:',gamescore,'Ti:',gametime,'Ip:',playerIp,'Cou:',playerCoutry);
+}
+//Database
+function addData(ip,coutry,score,playtime,datetime){
+  const db=firebase.firestore();
+	db.collection('Users').add({
+    ip: ip,
+    score: score,
+    country: coutry,
+    time: playtime,
+    dati: datetime
+	});
 }
