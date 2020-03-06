@@ -1,6 +1,6 @@
 ## TekGame ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
 Demo: https://abc3dz.github.io/TekGame/
-Charts: https://abc3dz.github.io/TekGame/indexdb
+<br>Charts: https://abc3dz.github.io/TekGame/indexdb
 <br>
 <br>record data to firebase
 <br>Ip
