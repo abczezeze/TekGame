@@ -6,4 +6,5 @@
 <br><img src="https://github.com/abc3dz/TekGame/blob/master/screenshot/20200306.gif" width="30%" height="30%">
 <br><br>2D game by Godot
 <br>https://www.kongregate.com/games/ABC3Dz/tek-game
+<br>
 <br>Play this game in mobile, the character will sleep. But playing this game on the computer the characters stand. Think the framework in use is lagging.
