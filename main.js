@@ -139,13 +139,12 @@ function init() {
   // model
   var loader = new THREE.GLTFLoader(loadingManager)
   // olay model
-  loader.load( './models/drum_boy/scene.gltf', (object) => {
+  loader.load( './models/olay2021_1.glb', (object) => {
     var animations = object.animations
     olay = object.scene
     olay.position.x = THREE.Math.randInt(-5,5)
     olay.position.y = THREE.Math.randInt(-5,5)
     olay.position.z = THREE.Math.randInt(-5,5)
-    olay.rotation.x = 90;
     olay.traverse((node) => {
       if(node instanceof THREE.Mesh){
         node.castShadow = true
@@ -189,7 +188,7 @@ function init() {
   })
 
   //speng
-  loader.load( './models/action_boy/scene.gltf', function ( object ) {
+  loader.load( './models/speng2021_1.glb', function ( object ) {
     var animations = object.animations
     speng = object.scene
     speng.position.x = THREE.Math.randInt(-5,5)
@@ -202,7 +201,7 @@ function init() {
         }
       })
     spengMixer = new THREE.AnimationMixer( speng )
-    var spengAct = spengMixer.clipAction(animations[0])
+    var spengAct = spengMixer.clipAction(animations[1])
     spengAct.play()
     scene.add( speng )
     //spengCollide
@@ -237,7 +236,7 @@ function init() {
   } )
 
   //mno
-  loader.load( './models/crazy_boy/scene.gltf', function ( object ) {
+  loader.load( './models/mno2021_1.glb', function ( object ) {
     var animations = object.animations
     mno = object.scene
     mno.position.x = THREE.Math.randInt(-5,5)
@@ -250,7 +249,7 @@ function init() {
         }
       })
     mnoMixer = new THREE.AnimationMixer( mno )
-    var mnoAct = mnoMixer.clipAction(animations[2])
+    var mnoAct = mnoMixer.clipAction(animations[0])
     mnoAct.play()
     scene.add( mno )
     //mnoCollide
@@ -284,7 +283,7 @@ function init() {
     });
   } )
   //ishuen
-  loader.load( './models/quite_boy/ishuen_2021_1.glb', function ( object ) {
+  loader.load( './models/ishuen2021_1.glb', function ( object ) {
     var animations = object.animations
     ishuen = object.scene
     ishuen.position.x = THREE.Math.randInt(-5,5)
@@ -474,6 +473,7 @@ function init() {
   saveLink.style.color = 'white !important';
   saveLink.style.textAlign = 'left';
   saveLink.style.textShadow = '1 1 6px #000'
+  saveLink.style.backgroundColor = "red";
   saveLink.innerHTML = '<a href="#" id="saveLink">Screenshot</a>';
   document.body.appendChild(saveLink);
 
