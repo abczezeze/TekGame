@@ -145,6 +145,7 @@ function init() {
     olay.position.x = THREE.Math.randInt(-5,5)
     olay.position.y = THREE.Math.randInt(-5,5)
     olay.position.z = THREE.Math.randInt(-5,5)
+    olay.rotation.x = 90;
     olay.traverse((node) => {
       if(node instanceof THREE.Mesh){
         node.castShadow = true
@@ -283,7 +284,7 @@ function init() {
     });
   } )
   //ishuen
-  loader.load( './models/quite_boy/scene.gltf', function ( object ) {
+  loader.load( './models/quite_boy/ishuen_2021_1.glb', function ( object ) {
     var animations = object.animations
     ishuen = object.scene
     ishuen.position.x = THREE.Math.randInt(-5,5)
@@ -296,7 +297,7 @@ function init() {
         }
       })
     ishuenMixer = new THREE.AnimationMixer( ishuen )
-    var ishuenAct = ishuenMixer.clipAction(animations[1])
+    var ishuenAct = ishuenMixer.clipAction(animations[0])
     ishuenAct.play()
     scene.add( ishuen )
     //ishuenCollide
