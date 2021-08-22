@@ -5,11 +5,29 @@ const table_player=document.querySelector('#tbresult_player');
 var numrow = 1
 var numrowPlayer = 1
 var img = new Image();
+//country name
+const regionNamesInEnglish = new Intl.DisplayNames(['en'], { type: 'region' });
+const regionNamesInTraditionalChinese = new Intl.DisplayNames(['zh-Hant'], { type: 'region' });
+console.log(regionNamesInEnglish.of('US'));
+console.log(regionNamesInEnglish.of('TH'));
+console.log(regionNamesInTraditionalChinese.of('US'));
+console.log(regionNamesInTraditionalChinese.of('TH'));
 // db.collection('Users').get().then((snapshot)=>{
 // db.collection('Users').where('score','>','400').get().then((snapshot)=>{
-db.collection('Users').orderBy('score','desc').limit(20).get().then((snapshot)=>{
+//TEST GroupBy(), SUM()
+let scoretotal=0;
+db.collection('Users').where('country','==',regionNamesInEnglish.of('TH')).get().then((snapshot)=>{
+	snapshot.forEach(doc=>{
+		//console.log(doc.data().score);
+		scoretotal += doc.data().score;
+		console.log("SUM:"+scoretotal);
+		});
+  });
+  
+//display
+db.collection('Users').orderBy('score','desc').limit(10).get().then((snapshot)=>{
   snapshot.forEach(doc=>{
-		console.log(doc.data());
+		//console.log(doc.data());
 		showData(doc);
 	});
 });
@@ -17,7 +35,6 @@ db.collection('Users').orderBy('score','desc').limit(20).get().then((snapshot)=>
 $.getJSON('https://ipapi.co/json/', function(data) {
 	db_player.collection('Users').where('ip','==',data.ip).get().then((snapshot)=>{
 	snapshot.forEach(doc=>{
-		console.log(doc.data());				
 		showDataPlayer(doc);
 		});
 	});
