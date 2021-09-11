@@ -97,8 +97,7 @@ function showDataPlayer(doc){
 	var cell6=row.insertCell(5);
 	
 	cell1.innerHTML=numrowPlayer++
-	// cell2.innerHTML=doc.data().ip;
-	cell2.innerHTML=makeid(8)
+	cell2.innerHTML=doc.data().ip;	
 	cell3.innerHTML=doc.data().country;
 	cell4.innerHTML=doc.data().score;
 	let sec = doc.data().time;
