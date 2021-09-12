@@ -8,10 +8,10 @@ var img = new Image();
 
 //country name
 const regionNamesInEnglish = new Intl.DisplayNames(['en'], { type: 'region' });
-// const regionNamesInTraditionalChinese = new Intl.DisplayNames(['zh-Hant'], { type: 'region' });
-// console.log(regionNamesInEnglish.of('US'));
+const regionNamesInTraditionalChinese = new Intl.DisplayNames(['zh-Hant'], { type: 'region' });
+console.log(regionNamesInEnglish.of('US'));
 // console.log(regionNamesInEnglish.of('TH'));
-// console.log(regionNamesInTraditionalChinese.of('US'));
+console.log(regionNamesInTraditionalChinese.of('US'));
 // console.log(regionNamesInTraditionalChinese.of('TH'));
 // db.collection('Users').get().then((snapshot)=>{
 // db.collection('Users').where('score','>','400').get().then((snapshot)=>{
@@ -37,15 +37,15 @@ db.collection('Users').where('country','==',regionNamesInEnglish.of('TH')).get()
   });
   
 //display
-db.collection('Users').orderBy('score','desc').limit(10).get().then((snapshot)=>{
+db.collection('Users').orderBy('score','desc').limit(20).get().then((snapshot)=>{
   snapshot.forEach(doc=>{
 		//console.log(doc.data());
 		showData(doc);
 	});
 });
 	
-/*$.getJSON('https://ipapi.co/json/', function(data) {
-	db_player.collection('Users').where('ip','==',data.ip).get().then((snapshot)=>{
+/* $.getJSON('https://ipapi.co/json/', function(data) {
+	db_player.collection('Users').where('player','==',data.ip).get().then((snapshot)=>{
 	snapshot.forEach(doc=>{
 		showDataPlayer(doc);
 		});
@@ -83,7 +83,6 @@ function showData(doc){
 	cell5.innerHTML=sec
 	cell6.innerHTML=new Date(doc.data().dati.seconds*1000);	
 }
-
 /*function showDataPlayer(doc){
 	var row=table_player.insertRow(-1);
 	var cell1=row.insertCell(0);
