@@ -53,13 +53,14 @@ var itemload, itemtotal;
 var loadpage=0;
 
 //DataFirebase
-var playerIp = "1.1.1.1"
-var playerCoutry = "Country"
-var gamescore = 0
-var gametime = 0
-var firebaseDT = new firebase.firestore.Timestamp.now()
+var playerName = makeid(8);
+var playerIp = "1.1.1.1";
+var playerCoutry = "Country";
+var gamescore = 0;
+var gametime = 0;
+var firebaseDT = new firebase.firestore.Timestamp.now();
 //Html
-var htmlTime, htmlScore, htmlPlayer, htmlCountry, htmlIp, btn
+var htmlTime, htmlScore, htmlPlayer, htmlCountry, htmlIp, btn;
 
 // - Main code -
 init()
@@ -481,8 +482,8 @@ function init() {
     // console.log(JSON.stringify(data, null, 2));
       // getip.innerText = "PlayerIP: "+data.ip
       playerIp = data.ip
-      htmlIp.innerText = "Ip: "+playerIp
-
+      //htmlIp.innerText = "Ip: "+playerIp
+      htmlIp.innerText = "random name: "+playerName
       playerCoutry = data.country_name
       htmlCountry.innerText = "Country: "+playerCoutry
       // console.log('cou:',playerCoutry);
@@ -505,8 +506,8 @@ function init() {
   btn.onclick = function(){  
     // alert('Thank you for playing');
     if(gamescore <= 5){
-      console.log("Your score more than 5. Please!")
-      cantRec.innerHTML = 'Your score more than 5. Please!'
+      console.log("Your score more than 5.")
+      cantRec.innerHTML = 'Your score more than 5.!'
       setTimeout(function(){
         cantRec.innerHTML = '';
       }, 5000);
@@ -523,7 +524,7 @@ function init() {
       // console.log('JS date: ',currentTime)
       //let firebaseDT = new firebase.firestore.Timestamp.now()
       //console.log('da_ti: ',firebaseDT)
-      addData(playerIp,playerCoutry,gamescore,gametime,firebaseDT)
+      addData(playerName,playerCoutry,gamescore,gametime,firebaseDT)
       btn.remove();
       setTimeout(function(){
         location.reload();
@@ -812,13 +813,23 @@ function render(){
   //console.log('Sc:',gamescore,'Ti:',gametime,'Ip:',playerIp,'Cou:',playerCoutry);
 }
 //Database
-function addData(ip,coutry,score,playtime,datetime){
+function addData(rdname,coutry,score,playtime,datetime){
   const db=firebase.firestore();
 	db.collection('Users').add({
-    ip: ip,
+    player: rdname,
     score: score,
     country: coutry,
     time: playtime,
     dati: datetime
 	});
+}
+//random name
+function makeid(length) {
+	var result           = '';
+	var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	var charactersLength = characters.length;
+	for ( var i = 0; i < length; i++ ) {
+	  result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
 }

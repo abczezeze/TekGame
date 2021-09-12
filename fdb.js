@@ -16,18 +16,15 @@ const regionNamesInEnglish = new Intl.DisplayNames(['en'], { type: 'region' });
 // db.collection('Users').get().then((snapshot)=>{
 // db.collection('Users').where('score','>','400').get().then((snapshot)=>{
 
-function makeid(length) {
-	var result           = '';
-	var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	var charactersLength = characters.length;
-	for ( var i = 0; i < length; i++ ) {
-	  result += characters.charAt(Math.floor(Math.random() * 
- charactersLength));
-   }
-   return result;
-}
-	
-console.log(makeid(8));
+// function makeid(length) {
+// 	var result           = '';
+// 	var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+// 	var charactersLength = characters.length;
+// 	for ( var i = 0; i < length; i++ ) {
+// 	  result += characters.charAt(Math.floor(Math.random() * charactersLength));
+//    }
+//    return result;
+// }
 
 //TEST GroupBy(), SUM()
 let scoretotal=0;
@@ -79,8 +76,7 @@ function showData(doc){
 		cell1.innerHTML='<img src="'+img.src+'" />';
 	}
 
-	// cell2.innerHTML=doc.data().ip;
-	cell2.innerHTML=makeid(8)
+	cell2.innerHTML=doc.data().player;	
 	cell3.innerHTML=doc.data().country;
 	cell4.innerHTML=doc.data().score;
 	let sec = doc.data().time;
@@ -97,7 +93,7 @@ function showDataPlayer(doc){
 	var cell6=row.insertCell(5);
 	
 	cell1.innerHTML=numrowPlayer++
-	cell2.innerHTML=doc.data().ip;	
+	cell2.innerHTML=doc.data().player;	
 	cell3.innerHTML=doc.data().country;
 	cell4.innerHTML=doc.data().score;
 	let sec = doc.data().time;
