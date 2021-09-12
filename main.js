@@ -506,8 +506,8 @@ function init() {
   btn.onclick = function(){  
     // alert('Thank you for playing');
     if(gamescore <= 5){
-      console.log("Your score more than 5.")
-      cantRec.innerHTML = 'Your score more than 5.!'
+      // console.log("Your score more than 5")
+      cantRec.innerHTML = 'Your score more than 5'
       setTimeout(function(){
         cantRec.innerHTML = '';
       }, 5000);
@@ -525,10 +525,33 @@ function init() {
       //let firebaseDT = new firebase.firestore.Timestamp.now()
       //console.log('da_ti: ',firebaseDT)
       addData(playerName,playerCoutry,gamescore,gametime,firebaseDT)
-      btn.remove();
+      // btn.remove();
       setTimeout(function(){
-        location.reload();
-      }, 3000);
+        //location.reload();
+        gamescore = 0;
+        totalScoreClick = 0;
+        olayClick = 0;
+        spengClick = 0;
+        mnoClick = 0;
+        ishuenClick = 0;
+        
+        // total score
+        scene.remove(totalScoreCk);
+        loadertxt = new THREE.FontLoader();
+        loadertxt.load('font/helvetiker_regular.typeface.json',(font) => {
+        textGeo = new THREE.TextBufferGeometry( totalScoreClick,{
+          font: font,
+          size: .7,
+          height: .1,
+          curveSegments: 1,
+          });
+          textMaterial = new THREE.MeshPhongMaterial( { color: 0xee1111 } );
+          totalScoreCk = new THREE.Mesh( textGeo, textMaterial );
+          totalScoreCk.castShadow = true;
+          totalScoreCk.receiveShadow = true;
+          scene.add( totalScoreCk );
+        });
+      }, 1000);
     }    
      //console.log('1Sc:',gamescore,'Ti:',gametime,'Na:',playerName,'Ip:',playerIp,'Cou:',playerCoutry);
   };
