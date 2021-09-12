@@ -44,13 +44,13 @@ db.collection('Users').orderBy('score','desc').limit(10).get().then((snapshot)=>
 	});
 });
 	
-$.getJSON('https://ipapi.co/json/', function(data) {
+/*$.getJSON('https://ipapi.co/json/', function(data) {
 	db_player.collection('Users').where('ip','==',data.ip).get().then((snapshot)=>{
 	snapshot.forEach(doc=>{
 		showDataPlayer(doc);
 		});
 	});
-});	
+});*/	
 	
 function showData(doc){
 	var row=table.insertRow(-1);
@@ -83,7 +83,8 @@ function showData(doc){
 	cell5.innerHTML=sec
 	cell6.innerHTML=new Date(doc.data().dati.seconds*1000);	
 }
-function showDataPlayer(doc){
+
+/*function showDataPlayer(doc){
 	var row=table_player.insertRow(-1);
 	var cell1=row.insertCell(0);
 	var cell2=row.insertCell(1);
@@ -99,4 +100,4 @@ function showDataPlayer(doc){
 	let sec = doc.data().time;
 	cell5.innerHTML=sec
 	cell6.innerHTML=new Date(doc.data().dati.seconds*1000);
-}
+}*/
