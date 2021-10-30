@@ -1,4 +1,5 @@
 ## TekGame ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
+<br>[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X86S8FN)
  <br>Charts: https://abczezeze.github.io/TekGame/indexdb
 <br>
 <br>record data to firebase
