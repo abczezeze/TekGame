@@ -6,5 +6,3 @@
 <br><img src="https://github.com/abc3dz/TekGame/blob/master/screenshot/20200306.gif" width="30%" height="30%">
 <br><br>2D game by Godot
 <br>https://www.kongregate.com/games/ABC3Dz/tek-game
-<br>
-<br>[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X86S8FN)
