@@ -22,25 +22,30 @@
   </table>
 </div> -->
   </body>
-    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-firestore.js"></script>
-    <script>
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-      apiKey: "AIzaSyAmMQlxW9POFpqRMiDS7o7wFMDHgvHtZmY",
-      authDomain: "tekgame-afb33.firebaseapp.com",
-      databaseURL: "https://tekgame-afb33.firebaseio.com",
-      projectId: "tekgame-afb33",
-      storageBucket: "tekgame-afb33.appspot.com",
-      messagingSenderId: "97542736002",
-      appId: "1:97542736002:web:f6a52c3cc243f6e9e90c9b",
-      measurementId: "G-XPE5QGHDE0"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-    //console.log(firebase);
+    <script type="module">
+	  // Import the functions you need from the SDKs you need
+	  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+	  // TODO: Add SDKs for Firebase products that you want to use
+	  // https://firebase.google.com/docs/web/setup#available-libraries
+	
+	  // Your web app's Firebase configuration
+	  const firebaseConfig = {
+	    apiKey: "AIzaSyAmMQlxW9POFpqRMiDS7o7wFMDHgvHtZmY",
+	    authDomain: "tekgame-afb33.firebaseapp.com",
+	    databaseURL: "https://tekgame-afb33.firebaseio.com",
+	    projectId: "tekgame-afb33",
+	    storageBucket: "tekgame-afb33.appspot.com",
+	    messagingSenderId: "97542736002",
+	    appId: "1:97542736002:web:f6a52c3cc243f6e9e90c9b"
+	  };
+	
+	  // Initialize Firebase
+	  const app = initializeApp(firebaseConfig);
+
+    	// Initialize Firebase
+    	firebase.initializeApp(firebaseConfig);
+    	firebase.analytics();
+    	//console.log(firebase);
     </script>
     <script src=fdb.js></script>
   </body>
