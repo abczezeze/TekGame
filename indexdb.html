@@ -24,12 +24,12 @@
   </body>
 	<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
-    	<script type="module">
+    	<script>
 	  // Import the functions you need from the SDKs you need
 	  //import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 	    //import { } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js'
-		import firebase from "firebase/app";
-		import "firebase/firestore";
+	import firebase from "firebase/app";
+	import "firebase/firestore";
 	  // TODO: Add SDKs for Firebase products that you want to use
 	  // https://firebase.google.com/docs/web/setup#available-libraries
 	
@@ -44,18 +44,12 @@
 	    appId: "1:97542736002:web:f6a52c3cc243f6e9e90c9b"
 	  };
 	
-	  // Initialize Firebase
-	  //const firebase = initializeApp(firebaseConfig);
+
 	// Initialize Firebase
 	firebase.initializeApp(firebaseConfig);
-
-
 	// Initialize Cloud Firestore and get a reference to the service
 	const db = firebase.firestore();
 
-    	// Initialize Firebase
-    	//firebase.initializeApp(firebaseConfig);
-    	//firebase.analytics();
     	//console.log(firebase);
     </script>
     <script src=fdb.js></script>
