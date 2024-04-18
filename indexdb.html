@@ -45,7 +45,13 @@
 	  };
 	
 	  // Initialize Firebase
-	  const firebase = initializeApp(firebaseConfig);
+	  //const firebase = initializeApp(firebaseConfig);
+	// Initialize Firebase
+	firebase.initializeApp(firebaseConfig);
+
+
+	// Initialize Cloud Firestore and get a reference to the service
+	const db = firebase.firestore();
 
     	// Initialize Firebase
     	//firebase.initializeApp(firebaseConfig);
